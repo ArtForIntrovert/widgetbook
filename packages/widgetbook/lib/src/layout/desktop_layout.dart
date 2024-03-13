@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
 import '../settings/settings_list.dart';
+import '../toolbar/toolbar.dart';
 import 'base_layout.dart';
 
 class DesktopLayout extends StatelessWidget implements BaseLayout {
@@ -32,7 +33,14 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
               child: navigationBuilder(context),
             ),
           ),
-          workbench,
+          Column(
+            children: [
+              const ExcludeSemantics(
+                child: Toolbar(),
+              ),
+              Expanded(child: workbench),
+            ],
+          ),
           ExcludeSemantics(
             child: Card(
               child: DefaultTabController(

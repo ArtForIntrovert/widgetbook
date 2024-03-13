@@ -1,9 +1,12 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../core/addon.dart';
 import '../core/mode.dart';
 import '../core/mode_addon.dart';
+import '../core/toolbar_addon.dart';
 import '../fields/fields.dart';
+import '../toolbar/widgets/toolbar_button.dart';
+import '../toolbar/widgets/toolbar_dropdown_button.dart';
 
 typedef ThemeBuilder<T> = Widget Function(
   BuildContext context,
@@ -24,7 +27,7 @@ class ThemeMode<T> extends Mode<T> {
 
 /// An [Addon] for changing the active custom theme. A [builder] must be
 /// provided that returns an [InheritedWidget] or similar [Widget]s.
-class ThemeAddon<T> extends ModeAddon<T> {
+class ThemeAddon<T> extends ModeAddon<T> with ToolbarAddonMixin {
   ThemeAddon(this.themes, this.builder)
       : super(
           name: 'Theme',
@@ -51,5 +54,28 @@ class ThemeAddon<T> extends ModeAddon<T> {
   @override
   T valueFromQueryGroup(Map<String, String> group) {
     return valueOf<T>('name', group)!;
+  }
+
+  @override
+  List<Widget> get actions {
+    final field = fields.single as ListField<T>;
+
+    return [
+      Builder(
+        builder: (context) {
+          return ToolbarDropdownButton(
+            items: [
+              for (final theme in field.values)
+                MenuItemButton(
+                  onPressed: () => field.updateField(context, groupName, theme),
+                  child: Text(field.labelBuilder(theme)),
+                ),
+            ],
+            tooltip: ToolbarTooltip(message: name),
+            child: const Icon(Icons.image_sharp),
+          );
+        },
+      ),
+    ];
   }
 }

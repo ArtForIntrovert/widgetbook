@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../settings/settings.dart';
+import '../toolbar/toolbar.dart';
 import 'base_layout.dart';
 
 class MobileLayout extends StatelessWidget implements BaseLayout {
@@ -21,7 +22,12 @@ class MobileLayout extends StatelessWidget implements BaseLayout {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: workbench,
+        child: Column(
+          children: [
+            const Toolbar(),
+            Expanded(child: workbench),
+          ],
+        ),
       ),
       bottomNavigationBar: ExcludeSemantics(
         child: BottomNavigationBar(

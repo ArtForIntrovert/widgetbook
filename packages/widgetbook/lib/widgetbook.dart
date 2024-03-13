@@ -8,4 +8,5 @@ export 'src/core/core.dart';
 export 'src/fields/fields.dart';
 export 'src/integrations/integrations.dart';
 export 'src/state/state.dart' hide WidgetbookScope;
+export 'src/toolbar/widgets/toolbar_widgets.dart';
 export 'src/widgetbook.dart';

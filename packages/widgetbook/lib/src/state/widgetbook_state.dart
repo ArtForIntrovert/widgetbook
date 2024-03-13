@@ -46,6 +46,14 @@ class WidgetbookState extends ChangeNotifier {
     return addons?.where((addon) => addon.fields.isNotEmpty).toList();
   }
 
+  T getAddonParams<T>(Addon<T> addon) {
+    final queryGroup = FieldCodec.decodeQueryGroup(
+      queryParams[addon.groupName],
+    );
+
+    return addon.valueFromQueryGroup(queryGroup);
+  }
+
   /// A [Uri] representation of the current state.
   Uri get uri {
     final queryParameters = {

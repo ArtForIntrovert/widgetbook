@@ -8,3 +8,4 @@ export 'mode_addon.dart';
 export 'scenario.dart';
 export 'story.dart';
 export 'story_args.dart';
+export 'toolbar_addon.dart';
