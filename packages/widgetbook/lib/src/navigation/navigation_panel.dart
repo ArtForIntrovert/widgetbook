@@ -41,9 +41,11 @@ class NavigationPanel extends StatelessWidget {
             height: 16,
           ),
           Expanded(
-            child: NavigationTreeNode(
-              node: filteredRoot ?? root,
-              onStoryTap: onStoryTap,
+            child: SingleChildScrollView(
+              child: NavigationTreeNode(
+                node: filteredRoot ?? root,
+                onStoryTap: onStoryTap,
+              ),
             ),
           ),
         ],
