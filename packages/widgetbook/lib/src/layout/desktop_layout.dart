@@ -38,37 +38,47 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
               const ExcludeSemantics(
                 child: Toolbar(),
               ),
-              Expanded(child: workbench),
+              Expanded(
+                child: ResizableWidget(
+                  isHorizontalSeparator: true,
+                  percentages: [
+                    .7,
+                    .3,
+                  ],
+                  children: [
+                    workbench,
+                    ExcludeSemantics(
+                      child: Card(
+                        child: SettingsList(
+                          name: 'Args',
+                          builder: argsBuilder,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
           ExcludeSemantics(
             child: Card(
-              child: DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    const TabBar(
-                      tabs: [
-                        Tab(text: 'Addons'),
-                        Tab(text: 'Args'),
-                      ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24, top: 12),
+                    child: Text(
+                      'Addons',
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          SettingsList(
-                            name: 'Addons',
-                            builder: addonsBuilder,
-                          ),
-                          SettingsList(
-                            name: 'Args',
-                            builder: argsBuilder,
-                          ),
-                        ],
-                      ),
+                  ),
+                  Expanded(
+                    child: SettingsList(
+                      name: 'Addon',
+                      builder: addonsBuilder,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
