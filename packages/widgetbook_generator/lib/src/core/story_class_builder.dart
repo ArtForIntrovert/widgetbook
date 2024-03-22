@@ -108,6 +108,12 @@ class StoryClassBuilder {
                               ..types.addAll([widgetClassRef, argsClassRef]),
                           ),
                 ),
+                Parameter(
+                  (b) => b
+                    ..name = 'primary'
+                    ..named = true
+                    ..toSuper = true,
+                ),
               ]);
 
               final superInitializers = {

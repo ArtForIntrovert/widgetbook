@@ -17,7 +17,7 @@ class NavigationTreeNode extends StatefulWidget {
 
   final TreeNode node;
   final int depth;
-  final ValueChanged<TreeNode<Story>>? onStoryTap;
+  final ValueChanged<TreeNode<AbstractStory>>? onStoryTap;
 
   @override
   State<NavigationTreeNode> createState() => _NavigationTreeNodeState();
@@ -31,7 +31,7 @@ class _NavigationTreeNodeState extends State<NavigationTreeNode> {
     final node = widget.node;
     final isCategory = node.isCategory;
     final isTerminal = switch (node) {
-      TreeNode<Story>() => true,
+      TreeNode<AbstractStory>() => true,
       TreeNode<Component>() => node.children.length == 1,
       _ => false,
     };
@@ -56,7 +56,7 @@ class _NavigationTreeNodeState extends State<NavigationTreeNode> {
               onTap: () {
                 if (!isTerminal) {
                   setState(() => isExpanded = !isExpanded);
-                } else if (node is TreeNode<Story>) {
+                } else if (node is TreeNode<AbstractStory>) {
                   widget.onStoryTap?.call(node);
                 } else {
                   // Redirect interactions to the story of the leaf component,
@@ -64,7 +64,7 @@ class _NavigationTreeNodeState extends State<NavigationTreeNode> {
                   // of the leaf component, and not the leaf component itself.
                   final componentNode = node as TreeNode<Component>;
                   widget.onStoryTap?.call(
-                    componentNode.children.first as TreeNode<Story>,
+                    componentNode.children.first as TreeNode<AbstractStory>,
                   );
                 }
               },

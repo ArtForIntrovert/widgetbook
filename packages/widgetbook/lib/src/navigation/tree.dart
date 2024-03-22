@@ -25,6 +25,15 @@ class Tree {
       );
 
       lastNode.add(componentNode);
+      component.documents?.forEach(
+        (story) => componentNode.add(
+          TreeNode<Document>(
+            story.name,
+            componentNode,
+            story,
+          ),
+        ),
+      );
       component.stories.forEach(
         (story) => componentNode.add(
           TreeNode<Story>(
@@ -39,10 +48,10 @@ class Tree {
     return root;
   }
 
-  static Map<String, Story> index(List<Component> components) {
+  static Map<String, AbstractStory> index(List<Component> components) {
     return Map.fromEntries(
       components.expand(
-        (component) => component.stories.map(
+        (component) => [...?component.documents, ...component.stories].map(
           (story) => MapEntry(
             component.pathOf(story),
             story,

@@ -5,49 +5,34 @@ import 'package:path/path.dart' as p;
 
 import 'extensions.dart';
 
-class ComponentBuilder {
-  ComponentBuilder(
-    this.widgetType,
-    this.argsType,
-    this.stories,
-    this.path,
-  );
+class AutodocsBuilder {
+  AutodocsBuilder(this.widgetType, this.stories, this.path);
 
-  final DartType widgetType;
-  final DartType argsType;
-  final List<TopLevelVariableElement> stories;
   final String path;
+  final DartType widgetType;
+  final List<TopLevelVariableElement> stories;
 
   Code build() {
     return Block.of([
       const Code('// ignore: strict_raw_type'),
-      declareFinal('${widgetType.nonGenericName}Component')
+      declareFinal('\$${widgetType.nonGenericName}AutoDocs')
           .assign(
             InvokeExpression.newOf(
               TypeReference(
                 (b) => b
-                  ..symbol = 'Component'
-                  ..types.addAll([
-                    refer(widgetType.nonGenericName),
-                    refer('${argsType.nonGenericName}Args'),
-                  ]),
+                  ..symbol = 'Document'
+                  ..types.add(refer(widgetType.nonGenericName)),
               ),
               [],
               {
+                'name': literalString('Docs'),
                 'meta': refer('meta').property('init').call(
                   [],
                   {'path': literalString(navPath)},
                 ),
-                'documents': literalList([
-                  refer('\$${widgetType.nonGenericName}AutoDocs')
-                      .property('init')
-                      .call(
-                    [],
-                    {
-                      'name': literalString('Docs'),
-                    },
-                  ),
-                ]),
+                'generated': refer(
+                  '\$${widgetType.nonGenericName}GeneratedMeta',
+                ),
                 'stories': literalList(
                   stories
                       .map(

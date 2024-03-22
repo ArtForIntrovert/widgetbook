@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'abstract_story.dart';
 import 'story_args.dart';
 
 typedef SetupBuilder<TWidget extends Widget, TArgs extends StoryArgs<TWidget>>
@@ -13,13 +14,15 @@ typedef ArgsBuilder<TWidget extends Widget, TArgs extends StoryArgs<TWidget>>
     = TWidget Function(BuildContext context, TArgs args);
 
 @optionalTypeArgs
-abstract class Story<TWidget extends Widget, TArgs extends StoryArgs<TWidget>> {
+abstract class Story<TWidget extends Widget, TArgs extends StoryArgs<TWidget>>
+    extends AbstractStory<TWidget> {
   const Story({
     String? name,
     this.designLink,
     this.setup = defaultSetup,
     required this.args,
     required this.argsBuilder,
+    this.primary = false,
   }) : $name = name;
 
   final String? $name;
@@ -27,6 +30,7 @@ abstract class Story<TWidget extends Widget, TArgs extends StoryArgs<TWidget>> {
   final TArgs args;
   final SetupBuilder<TWidget, TArgs> setup;
   final ArgsBuilder<TWidget, TArgs> argsBuilder;
+  final bool primary;
 
   static Widget defaultSetup(
     BuildContext context,

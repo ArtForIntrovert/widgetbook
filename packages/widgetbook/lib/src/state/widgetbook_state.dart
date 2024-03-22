@@ -36,9 +36,9 @@ class WidgetbookState extends ChangeNotifier {
 
   final List<Component> components;
   final TreeNode<Null> root;
-  final Map<String, Story> index;
+  final Map<String, AbstractStory> index;
 
-  Story? get story => path == null ? null : index[path!];
+  AbstractStory? get story => path == null ? null : index[path!];
 
   /// Same as [addons] but without the ones that have no fields.
   @internal

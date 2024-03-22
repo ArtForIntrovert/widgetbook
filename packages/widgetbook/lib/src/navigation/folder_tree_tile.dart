@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../core/core.dart';
 import 'icons/component_icon.dart';
+import 'icons/document_icon.dart';
 import 'icons/expander_icon.dart';
 import 'icons/story_icon.dart';
 import 'tree_node.dart';
@@ -60,6 +61,7 @@ class FolderTreeTile extends StatelessWidget {
               width: indentation,
               child: switch (node) {
                 TreeNode<Story>() => const StoryIcon(),
+                TreeNode<Document>() => const DocumentIcon(),
                 TreeNode<Component>() => const ComponentIcon(),
                 TreeNode<String>() => const Icon(Icons.folder, size: 16),
                 _ => const SizedBox(),

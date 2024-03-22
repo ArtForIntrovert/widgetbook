@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/story.dart';
 import '../layout/desktop_layout.dart';
 import '../layout/mobile_layout.dart';
 import '../navigation/navigation.dart';
@@ -41,10 +42,13 @@ class ResponsiveLayout extends StatelessWidget {
     final state = WidgetbookState.of(context);
     final story = state.story;
 
-    return story?.args.safeList //
-            .map((e) => e.buildFields(context))
-            .toList() ??
-        [];
+    if (story is Story) {
+      return story.args.safeList //
+          .map((e) => e.buildFields(context))
+          .toList();
+    }
+
+    return [];
   }
 
   @override

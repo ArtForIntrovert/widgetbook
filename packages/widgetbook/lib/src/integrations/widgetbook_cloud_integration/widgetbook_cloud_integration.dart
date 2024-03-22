@@ -28,11 +28,13 @@ class WidgetbookCloudIntegration extends WidgetbookIntegration {
   }
 
   @override
-  void onStoryChange(Story story) {
-    final argsJson = story.args.safeList //
-        .map((arg) => arg.toJson())
-        .toList();
+  void onStoryChange(AbstractStory story) {
+    if (story is Story) {
+      final argsJson = story.args.safeList //
+          .map((arg) => arg.toJson())
+          .toList();
 
-    notifyCloud('args', argsJson);
+      notifyCloud('args', argsJson);
+    }
   }
 }

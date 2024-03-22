@@ -37,14 +37,17 @@ GenericNum<T> $argsBuilder<T extends num, R>(
   );
 }
 
+/// It can show integers
 final $Integer = GenericNumStory<int, String>(
   argsBuilder: $argsBuilder,
   args: GenericNumInputArgs.fixed(
     number: 0,
     other: 'foo',
   ),
+  primary: true,
 );
 
+/// It can show doubles also
 final $Double = GenericNumStory<double, Color>(
   argsBuilder: $argsBuilder,
   args: GenericNumInputArgs.fixed(

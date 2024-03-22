@@ -1,7 +1,9 @@
+export 'abstract_story.dart';
 export 'addon.dart';
 export 'arg.dart';
 export 'component.dart';
 export 'const_arg.dart';
+export 'document.dart';
 export 'meta.dart';
 export 'mode.dart';
 export 'mode_addon.dart';

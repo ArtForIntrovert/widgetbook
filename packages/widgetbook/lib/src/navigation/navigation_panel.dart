@@ -15,7 +15,7 @@ class NavigationPanel extends StatelessWidget {
   });
 
   final String? initialPath;
-  final ValueChanged<TreeNode<Story>>? onStoryTap;
+  final ValueChanged<TreeNode<AbstractStory>>? onStoryTap;
   final TreeNode<Null> root;
 
   @override

@@ -15,7 +15,7 @@ abstract class WidgetbookIntegration {
   void onInit(WidgetbookState state) {}
 
   /// Gets called when story changes.
-  void onStoryChange(Story story) {}
+  void onStoryChange(AbstractStory story) {}
 
   /// Gets called on every [WidgetbookState] change.
   void onChange(WidgetbookState state) {}
