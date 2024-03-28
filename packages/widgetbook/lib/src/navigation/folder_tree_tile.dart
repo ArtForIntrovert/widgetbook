@@ -61,7 +61,7 @@ class FolderTreeTile extends StatelessWidget {
               width: indentation,
               child: switch (node) {
                 TreeNode<Story>() => const StoryIcon(),
-                TreeNode<Document>() => const DocumentIcon(),
+                TreeNode<DocumentStory>() => const DocumentIcon(),
                 TreeNode<Component>() => const ComponentIcon(),
                 TreeNode<String>() => const Icon(Icons.folder, size: 16),
                 _ => const SizedBox(),

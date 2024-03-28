@@ -5,8 +5,8 @@ import 'package:collection/collection.dart';
 
 import 'extensions.dart';
 
-class GeneratedMetaBuilder {
-  GeneratedMetaBuilder(
+class MetaExtraBuilder {
+  MetaExtraBuilder(
     this.widgetType,
     this.stories,
   );
@@ -21,7 +21,7 @@ class GeneratedMetaBuilder {
   Code build() {
     final docs = convertDocComment(widgetType.element?.documentationComment);
     final constructor = widgetType.getDisplayString(withNullability: false);
-    final args = params.map(
+    final argDocs = params.map(
       (e) {
         return InvokeExpression.newOf(
           TypeReference((b) => b..symbol = 'ArgMeta'),
@@ -39,7 +39,7 @@ class GeneratedMetaBuilder {
         );
       },
     );
-    final stories = {
+    final storyDocs = {
       for (final story in this.stories)
         if (story.documentationComment?.isNotEmpty == true)
           literalString(story.name.substring(1)):
@@ -48,20 +48,20 @@ class GeneratedMetaBuilder {
 
     return Block.of([
       const Code('// ignore: strict_raw_type'),
-      declareFinal('\$${widgetType.nonGenericName}GeneratedMeta')
+      declareFinal('\$${widgetType.nonGenericName}MetaExtra')
           .assign(
             InvokeExpression.newOf(
               TypeReference(
                 (b) => b
-                  ..symbol = 'GeneratedMeta'
+                  ..symbol = 'MetaExtra'
                   ..types.add(refer(widgetType.nonGenericName)),
               ),
               [],
               {
-                'docs': docs ?? literalNull,
+                'componentDocComment': docs ?? literalNull,
                 'constructor': literalString(constructor),
-                'storyDocs': literalMap(stories),
-                'args': literalList(args)
+                'storyDocs': literalMap(storyDocs),
+                'args': literalList(argDocs),
               },
             ),
           )

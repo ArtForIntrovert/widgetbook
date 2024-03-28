@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import '../documents/document_page.dart';
 import 'abstract_story.dart';
 import 'meta.dart';
+import 'meta_extra.dart';
 import 'story.dart';
 import 'story_args.dart';
 
 @optionalTypeArgs
-class Document<TWidget extends Widget> extends AbstractStory<TWidget> {
-  const Document({
+class DocumentStory<TWidget extends Widget> extends AbstractStory<TWidget> {
+  const DocumentStory({
     String? name,
     required this.meta,
-    required this.generated,
+    required this.metaExtra,
     required this.stories,
   }) : $name = name;
 
   final String? $name;
   final Meta<TWidget> meta;
-  final GeneratedMeta<TWidget> generated;
+  final MetaExtra<TWidget> metaExtra;
   final List<Story<TWidget, StoryArgs<TWidget>>> stories;
 
   Widget build(BuildContext context) {
@@ -37,12 +38,12 @@ class Document<TWidget extends Widget> extends AbstractStory<TWidget> {
 
   /// Creates a copy of this using the provided [name] for late initialization.
   /// If [$name] was already set, it should have precedence over [name].
-  Document<TWidget> init({required String name}) {
-    return Document(
+  DocumentStory<TWidget> init({required String name}) {
+    return DocumentStory(
       name: $name ?? name,
       meta: meta,
       stories: stories,
-      generated: generated,
+      metaExtra: metaExtra,
     );
   }
 }

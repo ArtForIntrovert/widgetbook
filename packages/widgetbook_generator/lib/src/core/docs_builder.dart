@@ -5,8 +5,8 @@ import 'package:path/path.dart' as p;
 
 import 'extensions.dart';
 
-class AutodocsBuilder {
-  AutodocsBuilder(this.widgetType, this.stories, this.path);
+class DocsBuilder {
+  DocsBuilder(this.widgetType, this.stories, this.path);
 
   final String path;
   final DartType widgetType;
@@ -20,7 +20,7 @@ class AutodocsBuilder {
             InvokeExpression.newOf(
               TypeReference(
                 (b) => b
-                  ..symbol = 'Document'
+                  ..symbol = 'DocumentStory'
                   ..types.add(refer(widgetType.nonGenericName)),
               ),
               [],
@@ -30,8 +30,8 @@ class AutodocsBuilder {
                   [],
                   {'path': literalString(navPath)},
                 ),
-                'generated': refer(
-                  '\$${widgetType.nonGenericName}GeneratedMeta',
+                'metaExtra': refer(
+                  '\$${widgetType.nonGenericName}MetaExtra',
                 ),
                 'stories': literalList(
                   stories

@@ -38,7 +38,7 @@ class ComponentBuilder {
                   [],
                   {'path': literalString(navPath)},
                 ),
-                'documents': literalList([
+                'docs': literalList([
                   refer('\$${widgetType.nonGenericName}AutoDocs')
                       .property('init')
                       .call(

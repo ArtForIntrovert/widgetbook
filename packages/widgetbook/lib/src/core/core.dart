@@ -1,10 +1,12 @@
 export 'abstract_story.dart';
 export 'addon.dart';
 export 'arg.dart';
+export 'arg_meta.dart';
 export 'component.dart';
 export 'const_arg.dart';
-export 'document.dart';
+export 'document_story.dart';
 export 'meta.dart';
+export 'meta_extra.dart';
 export 'mode.dart';
 export 'mode_addon.dart';
 export 'scenario.dart';

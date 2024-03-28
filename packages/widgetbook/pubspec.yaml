@@ -27,6 +27,9 @@ dependencies:
   path: ^1.8.0
   resizable_widget: ^1.0.5
 
+  # widgets
+  flutter_markdown: ^0.6.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

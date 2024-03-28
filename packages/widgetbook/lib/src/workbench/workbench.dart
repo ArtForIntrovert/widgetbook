@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/abstract_story.dart';
-import '../core/document.dart';
+import '../core/document_story.dart';
 import '../core/story.dart';
 import '../state/state.dart';
 import 'addons_builder.dart';
@@ -35,7 +35,7 @@ class Workbench extends StatelessWidget {
                     key: ValueKey(state.uri),
                     builder: (context) {
                       return switch (story) {
-                        Document story => story.build(context),
+                        DocumentStory story => story.build(context),
                         Story story => story.build(context),
                         _ => const SizedBox.shrink(),
                       };

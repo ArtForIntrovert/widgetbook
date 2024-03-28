@@ -5,9 +5,9 @@ import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'args_class_builder.dart';
-import 'autodocs_builder.dart';
 import 'component_builder.dart';
-import 'generated_meta_builder.dart';
+import 'docs_builder.dart';
+import 'meta_extra_builder.dart';
 import 'scenario_typedef_builder.dart';
 import 'story_class_builder.dart';
 
@@ -43,8 +43,8 @@ class StoryGenerator extends Generator {
       (b) => b
         ..body.addAll(
           [
-            GeneratedMetaBuilder(widgetType, storiesVariables).build(),
-            AutodocsBuilder(widgetType, storiesVariables, path).build(),
+            MetaExtraBuilder(widgetType, storiesVariables).build(),
+            DocsBuilder(widgetType, storiesVariables, path).build(),
             ComponentBuilder(widgetType, argsType, storiesVariables, path)
                 .build(),
             ScenarioTypedefBuilder(widgetType, argsType).build(),
