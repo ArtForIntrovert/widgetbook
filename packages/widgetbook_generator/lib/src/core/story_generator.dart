@@ -8,6 +8,7 @@ import 'args_class_builder.dart';
 import 'component_builder.dart';
 import 'docs_builder.dart';
 import 'meta_extra_builder.dart';
+import 'package_graph.dart';
 import 'scenario_typedef_builder.dart';
 import 'story_class_builder.dart';
 
@@ -17,6 +18,8 @@ class StoryGenerator extends Generator {
     LibraryReader library,
     BuildStep buildStep,
   ) async {
+    final graph = await getPackageGraph(library.element);
+
     final storiesVariables = library.allElements
         .whereType<TopLevelVariableElement>()
         .where((element) => element.name.startsWith('\$'))
@@ -43,7 +46,7 @@ class StoryGenerator extends Generator {
       (b) => b
         ..body.addAll(
           [
-            MetaExtraBuilder(widgetType, storiesVariables).build(),
+            MetaExtraBuilder(widgetType, storiesVariables, graph).build(),
             DocsBuilder(widgetType, storiesVariables, path).build(),
             ComponentBuilder(widgetType, argsType, storiesVariables, path)
                 .build(),

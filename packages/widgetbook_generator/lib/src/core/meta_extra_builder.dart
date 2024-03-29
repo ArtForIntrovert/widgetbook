@@ -2,6 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
+import 'package:dartdoc/dartdoc.dart';
 
 import 'extensions.dart';
 
@@ -9,17 +10,24 @@ class MetaExtraBuilder {
   MetaExtraBuilder(
     this.widgetType,
     this.stories,
+    this.graph,
   );
 
   final DartType widgetType;
   final List<TopLevelVariableElement> stories;
+  final PackageGraph graph;
 
   Iterable<ParameterElement> get params {
     return (widgetType.element as ClassElement).constructors.first.parameters;
   }
 
   Code build() {
-    final docs = convertDocComment(widgetType.element?.documentationComment);
+    // TODO(@melvspace): 03/30/24 it takes to long to discover libraries
+    final model = graph.findCanonicalModelElementFor(widgetType.element!);
+    final docs = convertDocComment(
+      model?.documentation ?? widgetType.element?.documentationComment,
+    );
+
     final constructor = widgetType.getDisplayString(withNullability: false);
     final argDocs = params.map(
       (e) {

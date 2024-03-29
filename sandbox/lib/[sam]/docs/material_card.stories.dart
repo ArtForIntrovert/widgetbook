@@ -6,7 +6,12 @@ part 'material_card.stories.book.dart';
 final meta = Meta<Card>();
 
 final $Default = CardStory(
-  args: CardArgs.fixed(
-    child: const Text('Hello world 👋'),
+  args: CardArgs(
+    child: const ConstArg(
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text('Hello world 👋'),
+      ),
+    ),
   ),
 );
