@@ -3,6 +3,7 @@ import 'package:resizable_widget/resizable_widget.dart';
 
 import '../settings/settings_list.dart';
 import '../toolbar/toolbar.dart';
+import '../widgets/panel.dart';
 import 'base_layout.dart';
 
 class DesktopLayout extends StatelessWidget implements BaseLayout {
@@ -29,7 +30,7 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
         separatorColor: Colors.white24,
         children: [
           ExcludeSemantics(
-            child: Card(
+            child: Panel(
               child: navigationBuilder(context),
             ),
           ),
@@ -48,7 +49,7 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
                   children: [
                     workbench,
                     ExcludeSemantics(
-                      child: Card(
+                      child: Panel(
                         child: SettingsList(
                           name: 'Args',
                           builder: argsBuilder,
@@ -61,7 +62,7 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
             ],
           ),
           ExcludeSemantics(
-            child: Card(
+            child: Panel(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

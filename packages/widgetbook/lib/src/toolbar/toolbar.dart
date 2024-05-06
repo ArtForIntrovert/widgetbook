@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/toolbar_addon.dart';
 import '../state/state.dart';
+import '../widgets/panel.dart';
 
 class Toolbar extends StatelessWidget {
   const Toolbar({super.key});
@@ -19,8 +20,7 @@ class Toolbar extends StatelessWidget {
               minHeight: 40,
               minWidth: double.infinity,
             ),
-            child: Card(
-              shape: const LinearBorder(),
+            child: Panel(
               margin: const EdgeInsets.only(bottom: 4),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
