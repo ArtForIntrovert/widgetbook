@@ -7,6 +7,17 @@ import 'routing/routing.dart';
 import 'state/state.dart';
 import 'themes.dart';
 
+/// Class to override default Widgetbook theme
+class WidgetbookTheme {
+  const WidgetbookTheme({
+    required this.light,
+    this.dark,
+  });
+
+  final ThemeData light;
+  final ThemeData? dark;
+}
+
 /// Describes the configuration for your [Widget] library.
 ///
 /// [Widgetbook] is the central element in organizing your widgets into
@@ -24,6 +35,7 @@ class Widgetbook extends StatefulWidget {
     this.appBuilder = widgetsAppBuilder,
     this.addons,
     this.integrations,
+    this.theme,
   });
 
   /// A [Widgetbook] with [CupertinoApp] as an [appBuilder].
@@ -34,6 +46,7 @@ class Widgetbook extends StatefulWidget {
     this.appBuilder = cupertinoAppBuilder,
     this.addons,
     this.integrations,
+    this.theme,
   });
 
   /// A [Widgetbook] with [MaterialApp] as an [appBuilder].
@@ -44,6 +57,7 @@ class Widgetbook extends StatefulWidget {
     this.appBuilder = materialAppBuilder,
     this.addons,
     this.integrations,
+    this.theme,
   });
 
   /// The initial route for that will be used on first startup.
@@ -61,6 +75,9 @@ class Widgetbook extends StatefulWidget {
   /// integrate with Widgetbook Cloud via [WidgetbookCloudIntegration], but
   /// can also be used to integrate with third-party packages.
   final List<WidgetbookIntegration>? integrations;
+
+  /// Widgetbook theme
+  final WidgetbookTheme? theme;
 
   @override
   State<Widgetbook> createState() => _WidgetbookState();
@@ -99,8 +116,8 @@ class _WidgetbookState extends State<Widgetbook> {
       state: state,
       child: MaterialApp.router(
         title: 'Widgetbook',
-        theme: Themes.light,
-        darkTheme: Themes.dark,
+        theme: widget.theme?.light ?? Themes.light,
+        darkTheme: widget.theme != null ? widget.theme!.dark : Themes.dark,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
       ),
