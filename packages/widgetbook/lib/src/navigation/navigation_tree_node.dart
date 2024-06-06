@@ -24,7 +24,9 @@ class NavigationTreeNode extends StatefulWidget {
 }
 
 class _NavigationTreeNodeState extends State<NavigationTreeNode> {
-  bool isExpanded = true;
+  late bool isExpanded = widget.node.isRoot || //
+      (widget.node.parent?.isRoot ?? false) ||
+      (WidgetbookState.of(context).path?.contains(widget.node.path) ?? false);
 
   @override
   Widget build(BuildContext context) {
