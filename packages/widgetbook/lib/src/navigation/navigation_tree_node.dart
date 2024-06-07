@@ -54,7 +54,14 @@ class _NavigationTreeNodeState extends State<NavigationTreeNode> {
               depth: widget.depth,
               isTerminal: isTerminal,
               isExpanded: isExpanded,
-              isSelected: node.path == WidgetbookState.of(context).path,
+              isSelected: switch (node) {
+                    _
+                        when node.children.length == 1 &&
+                            node.children.single.children.isEmpty =>
+                      WidgetbookState.of(context).path?.contains(node.path),
+                    _ => node.path == WidgetbookState.of(context).path,
+                  } ??
+                  false,
               onTap: () {
                 if (!isTerminal) {
                   setState(() => isExpanded = !isExpanded);
