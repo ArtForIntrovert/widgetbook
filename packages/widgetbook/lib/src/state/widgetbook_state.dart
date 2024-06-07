@@ -75,6 +75,12 @@ class WidgetbookState extends ChangeNotifier {
         .notifier!;
   }
 
+  static WidgetbookState? maybeOf(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<WidgetbookScope>()
+        ?.notifier;
+  }
+
   @internal
   @override
   void notifyListeners() {

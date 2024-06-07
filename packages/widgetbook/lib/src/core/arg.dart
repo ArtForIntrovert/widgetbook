@@ -49,7 +49,9 @@ abstract class Arg<T> extends FieldsComposable<T> {
   String get groupName => 'args';
 
   T resolve(BuildContext context) {
-    final state = WidgetbookState.of(context);
+    final state = WidgetbookState.maybeOf(context);
+    if (state == null) return value;
+
     final queryGroup = FieldCodec.decodeQueryGroup(state.queryParams['args']);
     return valueFromQueryGroup(queryGroup);
   }
