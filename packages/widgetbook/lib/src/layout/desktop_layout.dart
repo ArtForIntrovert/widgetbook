@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
+import '../settings/no_args_bottom_bar.dart';
 import '../settings/settings_list.dart';
 import '../toolbar/toolbar.dart';
 import '../widgets/panel.dart';
@@ -22,6 +23,8 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
 
   @override
   Widget build(BuildContext context) {
+    final args = argsBuilder(context);
+
     return ColoredBox(
       color: Theme.of(context).colorScheme.surface,
       child: ResizableWidget(
@@ -39,26 +42,33 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
               const ExcludeSemantics(
                 child: Toolbar(),
               ),
-              Expanded(
-                child: ResizableWidget(
-                  isHorizontalSeparator: true,
-                  percentages: [
-                    .7,
-                    .3,
-                  ],
-                  children: [
-                    workbench,
-                    ExcludeSemantics(
-                      child: Panel(
-                        child: SettingsList(
-                          name: 'Args',
-                          builder: argsBuilder,
+              if (args.isNotEmpty)
+                Expanded(
+                  child: ResizableWidget(
+                    isHorizontalSeparator: true,
+                    percentages: [
+                      .7,
+                      .3,
+                    ],
+                    children: [
+                      workbench,
+                      ExcludeSemantics(
+                        child: Panel(
+                          child: SettingsList(
+                            name: 'Args',
+                            builder: (context) => args,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
+                )
+              else ...[
+                Expanded(
+                  child: workbench,
                 ),
-              ),
+                const NoArgsBottomBar(),
+              ],
             ],
           ),
           ExcludeSemantics(
