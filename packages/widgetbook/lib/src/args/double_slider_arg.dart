@@ -40,3 +40,43 @@ class DoubleSliderArg extends Arg<double> {
     );
   }
 }
+
+class NullableDoubleSliderArg extends NullableArg<double> {
+  final double min;
+  final double max;
+  final double step;
+
+  NullableDoubleSliderArg(
+    super.value, {
+    super.name,
+    required this.min,
+    required this.max,
+    this.step = 1,
+  });
+
+  @override
+  List<Field> get fields => [
+        DoubleSliderField(
+          name: name,
+          initialValue: value,
+          min: min,
+          max: max,
+        ),
+      ];
+
+  @override
+  double? valueFromQueryGroup(Map<String, String> group) {
+    return valueOf(name, group);
+  }
+
+  @override
+  NullableDoubleSliderArg init({required String name}) {
+    return NullableDoubleSliderArg(
+      value,
+      name: $name ?? name,
+      min: min,
+      max: max,
+      step: step,
+    );
+  }
+}

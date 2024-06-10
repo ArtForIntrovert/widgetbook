@@ -16,6 +16,7 @@ class TypesTable extends StatelessWidget {
     this.integer = 1, // Nullable-Default
     this.decimal, // Nullable
     required this.string, // Required
+    this.nullableString, // Nullable
     this.color = Colors.red, // Default
     required this.duration,
     required this.status,
@@ -36,6 +37,7 @@ class TypesTable extends StatelessWidget {
   final int? integer;
   final double? decimal;
   final String string;
+  final String? nullableString;
   final Color color;
   final Duration duration;
   final Status status;
@@ -92,6 +94,12 @@ class TypesTable extends StatelessWidget {
                 children: [
                   Text('$String'),
                   Text(string),
+                ],
+              ),
+              TableRow(
+                children: [
+                  Text('$String?'),
+                  Text(nullableString.toString()),
                 ],
               ),
               TableRow(

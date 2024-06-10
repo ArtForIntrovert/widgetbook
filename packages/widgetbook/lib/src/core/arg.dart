@@ -85,3 +85,58 @@ abstract class Arg<T> extends FieldsComposable<T> {
     };
   }
 }
+
+abstract class NullableArg<T> extends Arg<T?> {
+  NullableArg(super.value, {super.name});
+
+  T? get value => $value;
+
+  @override
+  T? resolve(BuildContext context) {
+    if (getNullFlag(context)) return null;
+    return super.resolve(context);
+  }
+
+  bool getNullFlag(BuildContext context) {
+    final state = WidgetbookState.of(context);
+    final groupMap = FieldCodec.decodeQueryGroup(state.queryParams[groupName]);
+    return bool.tryParse(groupMap['null'] ?? '') ?? false;
+  }
+
+  @override
+  Widget buildFields(BuildContext context) {
+    final isNull = getNullFlag(context);
+
+    return NullableSetting(
+      name: name,
+      isNullable: true,
+      isNull: getNullFlag(context),
+      onChangedNullable: (value) {
+        WidgetbookState.of(context).updateQueryField(
+          group: groupName,
+          field: 'null',
+          value: (!value).toString(),
+        );
+      },
+      child: IgnorePointer(
+        ignoring: isNull,
+        child: Opacity(
+          opacity: isNull ? .5 : 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: fields
+                .map(
+                  (field) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4.0,
+                    ),
+                    child: field.build(context, groupName),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}

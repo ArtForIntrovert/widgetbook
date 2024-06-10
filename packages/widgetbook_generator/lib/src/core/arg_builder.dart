@@ -17,7 +17,11 @@ class ArgBuilder {
           (b) => b
             ..symbol = 'Arg'
             ..isNullable = param.type.isNullable
-            ..types.add(refer(param.type.nonNullableName)),
+            ..types.add(
+              refer(
+                param.type.getDisplayString(withNullability: true),
+              ),
+            ),
         ),
     );
   }
@@ -31,7 +35,11 @@ class ArgBuilder {
           (b) => b
             ..symbol = 'Arg'
             ..isNullable = param.type.isNullable
-            ..types.add(refer(param.type.nonNullableName)),
+            ..types.add(
+              refer(
+                param.type.getDisplayString(withNullability: true),
+              ),
+            ),
         )
         ..required = param.requiresArg
         ..defaultTo = !param.type.isPrimitive

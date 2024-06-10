@@ -30,3 +30,31 @@ class StringArg extends Arg<String> {
     );
   }
 }
+
+class NullableStringArg extends NullableArg<String> {
+  NullableStringArg(
+    super.value, {
+    super.name,
+  });
+
+  @override
+  List<Field> get fields => [
+        StringField(
+          name: name,
+          initialValue: value,
+        ),
+      ];
+
+  @override
+  String? valueFromQueryGroup(Map<String, String> group) {
+    return valueOf(name, group);
+  }
+
+  @override
+  NullableStringArg init({required String name}) {
+    return NullableStringArg(
+      value,
+      name: $name ?? name,
+    );
+  }
+}

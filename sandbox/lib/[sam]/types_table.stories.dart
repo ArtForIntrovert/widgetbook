@@ -24,6 +24,7 @@ final $Default = TypesTableStory(
       'Hello World',
       name: 'Text',
     ),
+    nullableString: NullableStringArg(null),
     duration: Arg.fixed(Duration.zero),
     person: const PersonArg(
       Person(

@@ -30,3 +30,31 @@ class DoubleArg extends Arg<double> {
     );
   }
 }
+
+class NullableDoubleArg extends NullableArg<double> {
+  NullableDoubleArg(
+    super.value, {
+    super.name,
+  });
+
+  @override
+  List<Field> get fields => [
+        DoubleInputField(
+          name: name,
+          initialValue: value,
+        ),
+      ];
+
+  @override
+  double? valueFromQueryGroup(Map<String, String> group) {
+    return valueOf(name, group);
+  }
+
+  @override
+  NullableDoubleArg init({required String name}) {
+    return NullableDoubleArg(
+      value,
+      name: $name ?? name,
+    );
+  }
+}
