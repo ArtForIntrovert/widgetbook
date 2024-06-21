@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
+import '../../widgetbook.dart';
 import '../settings/no_args_bottom_bar.dart';
 import '../settings/settings_list.dart';
 import '../toolbar/toolbar.dart';
@@ -28,6 +31,8 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
     return ColoredBox(
       color: Theme.of(context).colorScheme.surface,
       child: ResizableWidget(
+        // TODO(@melvspace): 06/21/24 resizable widget not updating children
+        key: ValueKey(args.isEmpty),
         separatorSize: 2,
         percentages: [0.2, 0.6, 0.2],
         separatorColor: Colors.white24,
@@ -44,6 +49,7 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
               ),
               if (args.isNotEmpty)
                 Expanded(
+                  // TODO(@melvspace): 06/21/24 resizable widget not updating children
                   child: ResizableWidget(
                     isHorizontalSeparator: true,
                     percentages: [
@@ -59,7 +65,7 @@ class DesktopLayout extends StatelessWidget implements BaseLayout {
                             builder: (context) => args,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )
